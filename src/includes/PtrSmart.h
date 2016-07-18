@@ -14,26 +14,23 @@
  * more details.
  */
 
-#ifndef BIOS_ENTRY
-#define BIOS_ENTRY
+#ifndef PTR_SMART
+#define PTR_SMART
 
-#include <string>
-#include "PtrSmart.h"
-#include "globals.h"
-using namespace std;
+#include <cstddef>
 
-class BiosEntry {
+template <class Obj>
+class PtrSmart{
   private:
-    int type;
-    string name;
-    string value;
+    Obj *ptr;
 
   public:
-    BiosEntry ();
-    BiosEntry (BiosEntry *ent);
-    BiosEntry (const int t, const string n, const string v)
-      : type( t ), name( n ), value( v ){};
-    string getValue();
-    bool operator < (const BiosEntry& ent) const;
+    explicit PtrSmart(Obj *p = NULL);
+    ~PtrSmart();
+    Obj &operator *();
+    Obj *operator ->();
 };
+
+#include "../PtrSmart.cpp"
+
 #endif

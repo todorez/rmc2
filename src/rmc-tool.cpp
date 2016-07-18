@@ -23,16 +23,16 @@ int main() {
   /* A few dummy BIOS strings for testing.
    * The corresponding fingerpring for these is :
    * a2881be4463728581e6b9ad909fcd9ae*/
-  smbios_data.push_back(new BiosEntry(1, "product_name", "Super Server"));
-  smbios_data.push_back(new BiosEntry(4, "product_name", "Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz"));
-  smbios_data.push_back(new BiosEntry(2, "product_name", "X10DAL-i"));
+  PtrSmart<BiosEntry> one(new BiosEntry(1, "product_name", "Super Server"));
+  PtrSmart<BiosEntry> two(new BiosEntry(2, "product_name", "X10DAL-i"));
+  PtrSmart<BiosEntry> four(new BiosEntry(4, "product_name", "Intel(R) Xeon(R) CPU E5-2699 v4 @ 2.20GHz"));
+  smbios_data.push_back(&(*one));
+  smbios_data.push_back(&(*two));
+  smbios_data.push_back(&(*four));
 
   RmcFingerprint *fp = new RmcFingerprint(&smbios_data);
   vector<BiosEntry> be = fp->getBiosEntries();
 
-  /* free the BIOS entries */
-  for (int i =0;i < smbios_data.size(); i++)
-    delete(smbios_data[i]);
-
   INFO("Fingerprint : %s \n", fp->getFingerprint().c_str());
+  return 0;
 }
