@@ -32,7 +32,7 @@ make debug
 
 ### CONTRIBUTING TO RMC
 
-Issues and pull requests will be initially tracked on GitHub.
+Issues and pull requests will be tracked on GitHub.
 
 ### MAINTAINERS
 

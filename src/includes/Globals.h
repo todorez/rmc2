@@ -14,34 +14,25 @@
  * more details.
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "globals.h"
+#include <stdarg.h>
+#include <stdint.h>
 
-void info(const char* fmt, ...) {
-  va_list args;
+#ifndef GLOBALS_H
+#define GLOBALS_H
 
-  printf("[INFO] ");
-  va_start(args, fmt);
-  vprintf(fmt, args);
-  va_end(args);
-}
+#define MEM_DEV "/dev/mem"
+#define SMBIOS_TBEGIN 0xF0000 /* starting address for SMBIOS entry point scan */
+#define SMBIOS_TEND 0xFFFFF   /* ending address for SMBIOS entry point scan */
 
-void debug(const char* fmt, ...) {
-  va_list args;
 
-  printf("[DEBUG] ");
-  va_start(args, fmt);
-  vprintf(fmt, args);
-  va_end(args);
-}
+#define NUM_BIOS_ENTRIES 3
 
-void error(const char *file, int line, const char *func, const char* fmt, ...) {
-  va_list args;
+void info(const char* fmt, ...);
+void debug(const char* fmt, ...);
+void error(const char *file, int line, const char *func, const char* fmt, ...);
 
-  printf("[ERROR] %s:%d: [%s] ", file, line, func);
-  va_start(args, fmt);
-  vprintf(fmt, args);
-  va_end(args);
-  exit(EXIT_FAILURE);
-}
+#define INFO(...)  info(__VA_ARGS__)
+#define ERR(...) error(__FILE__, __LINE__, __func__, __VA_ARGS__)
+#define DEBUG(...) debug(__VA_ARGS__)
+
+#endif

@@ -14,26 +14,34 @@
  * more details.
  */
 
-#ifndef BIOS_ENTRY
-#define BIOS_ENTRY
-
-#include <string>
-#include "PtrSmart.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "Globals.h"
-using namespace std;
 
-class BiosEntry {
-  private:
-    int type;
-    string name;
-    string value;
+void info(const char* fmt, ...) {
+  va_list args;
 
-  public:
-    BiosEntry ();
-    BiosEntry (BiosEntry *ent);
-    BiosEntry (const int t, const string n, const string v)
-      : type( t ), name( n ), value( v ){};
-    string getValue();
-    bool operator < (const BiosEntry& ent) const;
-};
-#endif
+  printf("[INFO] ");
+  va_start(args, fmt);
+  vprintf(fmt, args);
+  va_end(args);
+}
+
+void debug(const char* fmt, ...) {
+  va_list args;
+
+  printf("[DEBUG] ");
+  va_start(args, fmt);
+  vprintf(fmt, args);
+  va_end(args);
+}
+
+void error(const char *file, int line, const char *func, const char* fmt, ...) {
+  va_list args;
+
+  printf("[ERROR] %s:%d: [%s] ", file, line, func);
+  va_start(args, fmt);
+  vprintf(fmt, args);
+  va_end(args);
+  exit(EXIT_FAILURE);
+}

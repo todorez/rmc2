@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Intel Corporation
+ * Copyright (c) 2016 - 2017 Intel Corporation.
  *
  * Author: Todor Minchev <todor.minchev@linux.intel.com>
  *
@@ -14,19 +14,14 @@
  * more details.
  */
 
-#include <stdarg.h>
+#include "Smbios32.h"
+#include "Globals.h"
 
-#ifndef GLOBALS_H
-#define GLOBALS_H
-
-#define NUM_BIOS_ENTRIES 3
-
-void info(const char* fmt, ...);
-void debug(const char* fmt, ...);
-void error(const char *file, int line, const char *func, const char* fmt, ...);
-
-#define INFO(...)  info(__VA_ARGS__)
-#define ERR(...) error(__FILE__, __LINE__, __func__, __VA_ARGS__)
-#define DEBUG(...) debug(__VA_ARGS__)
-
-#endif
+class Smbios {
+  private:
+    struct SMBIOSEntryPoint EntryPoint;
+    bool ChecksumEntryPointStruct(const uint8_t *ep);
+  public:
+    uint8_t *GetSmbiosEntryPoint();
+    void SetEntryPoint(uint8_t *ep);
+};

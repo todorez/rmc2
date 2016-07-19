@@ -4,7 +4,7 @@ CPPFLAGS=-Iincludes/
 LDFLAGS=-Wl,-Bstatic
 LDLIBS=-lcrypto
 
-SRCS=BiosEntry.cpp RmcFingerprint.cpp rmc-tool.cpp globals.cpp
+SRCS=Smbios.cpp BiosEntry.cpp RmcFingerprint.cpp RmcTool.cpp Globals.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
 DEPS = $(wildcard includes/*.h)
 

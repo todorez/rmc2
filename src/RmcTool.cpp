@@ -16,9 +16,13 @@
 
 #include <iostream>
 #include "BiosEntry.h"
+#include "Smbios.h"
+#include "Globals.h"
 #include "RmcFingerprint.h"
 
 int main() {
+  Smbios *smbios = new Smbios();
+  uint8_t * buf = smbios->GetSmbiosEntryPoint();
   vector<BiosEntry*> smbios_data;
   /* A few dummy BIOS strings for testing.
    * The corresponding fingerpring for these is :
